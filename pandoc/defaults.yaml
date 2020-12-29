@@ -1,0 +1,29 @@
+from: markdown+link_attributes+native_divs+raw_tex+tex_math_dollars
+
+metadata:
+  link-citations: true
+  bibliography: bibliography.bib
+  csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/harvard-anglia-ruskin-university.csl"
+
+  # pandoc-crossref options
+  chapters: true
+
+variables:
+
+  linkcolor: Black
+  filecolor: DarkBlue
+  citecolor: DarkBlue
+  urlcolor: MediumBlue
+  toccolor: Black
+
+  cite-method: biblatex
+
+number-sections: true
+# toc: true
+# top-level-division: chapter
+
+eol: lf
+
+filters:
+- pandoc-crossref
+- pandoc-citeproc

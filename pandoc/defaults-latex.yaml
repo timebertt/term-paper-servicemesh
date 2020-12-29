@@ -1,0 +1,36 @@
+to: latex
+
+metadata:
+  listings: true
+  codeBlockCaptions: true
+
+variables:
+  documentclass: scrreport
+
+  classoption:
+  - a4paper
+  - titlepage
+  - numbers=noenddot
+  - chapterprefix=false
+  - headings=optiontohead
+  - svgnames
+  - dvipsnames
+  - oneside
+
+  hyperrefoptions:
+  - linktoc=all
+  # - hidelinks
+
+listings: true
+
+pdf-engine: latexmk
+pdf-engine-opt:
+- "-xelatex"
+- "-r"
+- ".latexmkrc"
+- "-g"
+- "-outdir=output-tex"
+
+# template: includes/Template.tex
+include-in-header:
+- includes/header.tex

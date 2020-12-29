@@ -1,3 +1,3 @@
-<!-- \chapter*{Abstract} -->
+\section*{Abstract}
 
-# Abstract
+By now the software industry has firmly agreed on the benefits of implementing modern software applications in a microservices-oriented manner. Compared to monolothic applications, a microservice-oriented architecture brings a lot of advantages including flexibility in development and deployment, faster innovation, individual resource management and scaling of single services. Though, implementing applications in such a distributed fashion also brings a number of challenges of distributed system, especially for applications with a high number of services written in different programming languages and running on different runtime stacks. These challenges include: 

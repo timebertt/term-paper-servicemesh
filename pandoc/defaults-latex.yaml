@@ -5,17 +5,18 @@ metadata:
   codeBlockCaptions: true
 
 variables:
-  documentclass: scrreport
+  documentclass: scrartcl
 
   classoption:
   - a4paper
-  - titlepage
+  # - titlepage
   - numbers=noenddot
   - chapterprefix=false
   - headings=optiontohead
   - svgnames
   - dvipsnames
   - oneside
+  - twocolumn
 
   hyperrefoptions:
   - linktoc=all

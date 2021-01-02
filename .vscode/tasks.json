@@ -12,6 +12,13 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "make clean",
+            "problemMatcher": [],
+            "group": "build",
         }
     ]
 }

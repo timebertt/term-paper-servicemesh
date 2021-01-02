@@ -9,7 +9,7 @@ variables:
 
   classoption:
   - a4paper
-  # - titlepage
+  - fontsize=10pt
   - numbers=noenddot
   - chapterprefix=false
   - headings=optiontohead
@@ -32,6 +32,5 @@ pdf-engine-opt:
 - "-g"
 - "-outdir=output-tex"
 
-# template: includes/Template.tex
 include-in-header:
 - includes/header.tex

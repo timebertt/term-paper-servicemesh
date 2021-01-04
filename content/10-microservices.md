@@ -71,37 +71,30 @@ Even though, containerization provides a number of advantages for building micro
 That's where container orchestrators comes into play.
 
 One popular open-source solution for managing high amounts of containers across large clusters of machines is Kubernetes [@k8sio].
-Though, there are alternative container orchestration solutions, like Docker Swarm, Marathon/Mesos, HashiCorp Nomad, Amazon EC2 Container Service and Azure Container Service, Kubernetes has become the industry's de-facto standard for deploying, managing and scaling containerized applications.
+Though, there are alternative container orchestration solutions, like Docker Swarm, Apache Marathon/Mesos, HashiCorp Nomad, Amazon EC2 Container Service and Azure Container Service, Kubernetes has become the industry's de-facto standard for deploying, managing and scaling containerized applications.
 
-Using Kubernetes as a container orchestration platform for running microservice-oriented applications brings a number of advantages:
+When using Kubernetes, containers are group and managed together as so called **Pods**, which consist of one or multiple interdependent containers modelling a single logical instance of an application component or service. A Pod is the smallest deployable unit in Kubernetes, which will be stored alongside all other Kubernetes objects in a highly-available key-value store (etcd [^etcdio]), accessible via the Kubernetes API.
+Kubernetes clusters are composed of a set of physical or virtual machines called Nodes, where individual Pods will be scheduled on to run.
+
+[^etcdio]: [https://etcd.io/](https://etcd.io/)
+
+Using Kubernetes as a container orchestration engine for running microservice-oriented applications brings a number of advantages:
 
 **Resource Management**: Firstly, Kubernetes allows to efficiently manage compute resources used by different service instances. Each container can specify how many compute resources it needs to run properly and the Kubernetes scheduler will find a suitable node in the cluster for running the workload, that has enough free capacity. By this, Kubernetes allows to achieve high resource utilization across all used machines and thereby cutting down cost.
 
 **High-Availability**: One of Kubernetes' core principles is high-availability and self-healing. This is achieved by implementing control plane components as controllers, which observe the current state of the workload and take actions to reach the specified desired state. E.g. Kubernetes offers to define application-specific health-checks, which allows to detecting and restarting unhealthy service instances.
 
-**Auto-Scaling**:
+**Auto-Scaling**: Kubernetes provides built-in mechanisms for horizontally scaling individual services in an automated manner. Scaling can either be triggered by resource utilization or by user-defined workload metrics such as requests per second to a given service. Other means of auto-scaling like vertically scaling individual services and scaling the cluster itself in the number of nodes are also available by installing additional auto-scaling controllers.
 
-- built-in auto-scaling capabilities
+**Service Discovery**: Another important feature of Kubernetes, that microservices benefit from is service discovery via simple mechanisms and standard protocols like DNS. For one, Kubernetes assigns an IP address to each Pod, via which it is reachable by other components in the cluster. Then, applications can group Pods belonging to the same microservice together and make the group reachable via a stable in-cluster DNS entry. Kubernetes will perform basic load balancing between all healthy instances of a service, relieving individual components from the task to figure out where the services they want to talk to are running.
 
-**Service Discovery**:
+**Network Policies**: Apart from giving each Pod a unique IP address, Kubernetes also allows configuring policies to apply to inter-Pod networking. This can be used to restrict, which of the different microservices can communicate with each other, on which ports and via which protocols. Though, Kubernetes only offers an API for configuring `NetworkPolicies`, while enforcement is actually dependent on the networking solution installed in the cluster.
 
-- service discovery
+**Automated Rollouts**: When deploying new versions of services, Kubernetes' automated rollout features can help in ensuring a smooth rollout without downtime. By default, rollouts are done in a rolling update fashion, which means replacing one replica of a given service after another, waiting for the new replicas to be healthy before replacing the next ones. Additionally, rollout strategies can be fine-tuned, e.g. to wait a given number of seconds after a new replica has become ready before continuing with the rollout.
 
-**Automated Rollouts**:
+**Uniform and Stable API**: Additionally, Kubernetes provides a uniform and stable API for both workload and configuration management. That means, specifications for workload and its configuration can be accessed, manipulated and secured by the same mechanisms in a stable and compatible manner.
 
-- automated rollout
-
-**Container Networking**:
-
-- network policies
-
-**Uniform API**:
-
-- uniform API for workload and configuration management
-
-**Infrastructure Abstraction Layer**:
-
-Finally, Kubernetes acts as an abstraction layer across a lot of infrastructures where one can deploy containerized workload, which makes containerized applications portable.
+**Infrastructure Abstraction Layer**: Finally, Kubernetes acts as an abstraction layer across a lot of infrastructures where one can deploy containerized workload, which makes containerized applications portable and offers flexibility in deployments.
 Not only is Kubernetes available as a managed service on many popular cloud platforms, there are also solutions for running it in a private cloud environment and also on a development machine.
 Across all these different infrastructures Kubernetes abstracts management of example of compute, storage and network resources.
 

@@ -33,6 +33,7 @@
         "Linkerd",
         "Lyft",
         "microservice",
-        "microservices"
+        "microservices",
+        "Rollouts"
     ]
 }

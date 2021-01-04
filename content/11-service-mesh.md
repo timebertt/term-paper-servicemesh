@@ -12,9 +12,9 @@
 - gradual/canary rollout
 - inter-service communication is configured/managed centrally
 - mutual Authentication
-- (Inter-Cluster communication) [^1]
+- (Inter-Cluster communication) [^multicluster]
 
-[^1]: [https://www.infoq.com/articles/kubernetes-multicluster-comms/](https://www.infoq.com/articles/kubernetes-multicluster-comms/)
+[^multicluster]: [https://www.infoq.com/articles/kubernetes-multicluster-comms/](https://www.infoq.com/articles/kubernetes-multicluster-comms/)
 
 ## Implementations
 

@@ -11,7 +11,8 @@
         {
             "languageId": "markdown",
             "ignoreRegExpList": [
-                "\\[@.+\\]" // pandoc references
+                // pandoc references
+                "\\[(@|\\^).+\\]"
             ]
         },
         {

@@ -5,7 +5,7 @@
 What are Microservices?
 
 - go over literature
-  - Fowler [@fowler2015microservices]
+  - Fowler [@fowler2014microservices]
 - Differentiation to Service-Oriented-Architecture
 
 ## Motivation
@@ -23,6 +23,7 @@ microservices allow:
 - individual development and deployment of each service
 - using different programming languages
 - individual scaling of services
+- DevOps culture (teams operate their own services)
 
 ## Challenges
 

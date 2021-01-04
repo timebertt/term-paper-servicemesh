@@ -1,4 +1,5 @@
 {
+    "version": "0.1",
     "language": "en-US",
     "enabledLanguageIds": [
         "markdown",
@@ -29,6 +30,7 @@
         "Istio",
         "Kubernetes",
         "Linkerd",
+        "Lyft",
         "microservice",
         "microservices"
     ]

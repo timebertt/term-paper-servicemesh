@@ -21,6 +21,9 @@ variables:
 number-sections: true
 # toc: true
 # top-level-division: chapter
+resource-path:
+- "."
+- "assets"
 
 eol: lf
 

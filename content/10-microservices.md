@@ -76,9 +76,13 @@ Though, there are alternative container orchestration solutions, like Docker Swa
 When using Kubernetes, containers are group and managed together as so called **Pods**, which consist of one or multiple interdependent containers modelling a single logical instance of an application component or service. A Pod is the smallest deployable unit in Kubernetes, which will be stored alongside all other Kubernetes objects in a highly-available key-value store (etcd [^etcdio]), accessible via the Kubernetes API.
 Kubernetes clusters are composed of a set of physical or virtual machines called Nodes, where individual Pods will be scheduled on to run.
 
-[^etcdio]: [https://etcd.io/](https://etcd.io/)
+[^etcdio]: \url{https://etcd.io/}
 
-Using Kubernetes as a container orchestration engine for running microservice-oriented applications brings a number of advantages:
+![Kubernetes Cluster Architecture [^k8sarch]](../assets/k8s-arch.png)
+
+[^k8sarch]: Available at [https://github.com/kubernetes/website/blob/release- 1.19/static/images/docs/post-ccm-arch.png](https://github.com/kubernetes/website/blob/release-1.19/static/images/docs/post-ccm-arch.png); accessed Jan, 4th 2021
+
+Using Kubernetes as a container orchestration engine for running microservice-oriented applications brings several of advantages:
 
 **Resource Management**: Firstly, Kubernetes allows to efficiently manage compute resources used by different service instances. Each container can specify how many compute resources it needs to run properly and the Kubernetes scheduler will find a suitable node in the cluster for running the workload, that has enough free capacity. By this, Kubernetes allows to achieve high resource utilization across all used machines and thereby cutting down cost.
 

@@ -18,7 +18,9 @@
         {
             "languageId": "bibtex",
             "ignoreRegExpList": [
-                "@.+?\\{.+?," // reference definition
+                // reference definition
+                "@.+?\\{.+?,",
+                "^.+?="
             ]
         }
     ],

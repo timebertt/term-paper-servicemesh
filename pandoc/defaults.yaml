@@ -3,7 +3,7 @@ from: markdown+link_attributes+native_divs+raw_tex+tex_math_dollars+inline_code_
 metadata:
   link-citations: true
   bibliography: bibliography.bib
-  csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/ieee-with-url.csl"
+  csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/ieee.csl"
 
   # pandoc-crossref options
   chapters: true

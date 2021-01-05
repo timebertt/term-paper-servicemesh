@@ -70,6 +70,8 @@ This means, that containers don't virtualize any hardware and don't run their ow
 Thus, containers are much more lightweight, faster in startup and more efficient than traditional virtual machines.
 And because of this, a single server or worker machine may easily host as many as 100 containers at the same time, allowing to achieve high resource utilization by sharing a host's compute resources between diverse workloads.
 
+[^docker]: [https://www.docker.com/](https://www.docker.com/)
+
 ![Containers vs. Virtual Machines [^c-vs-vm]](../assets/containers-vs-vms.png)
 
 [^c-vs-vm]: Available at [https://www.docker.com/blog/containers-replacing-virtual-machines/](https://www.docker.com/blog/containers-replacing-virtual-machines/); accessed Jan, 5th 2021
@@ -93,8 +95,6 @@ By this, containerized microservices can be scaled in a fine-grained manner in c
 
 \todo[inline]{isolation?}
 
-[^docker]: [https://www.docker.com/](https://www.docker.com/)
-
 ## Kubernetes as a Deployment underlay
 
 Once an application is split into a suite of microservices and packaged as a set of container images, it needs some infrastructure and platform to be run the containers on.
@@ -113,7 +113,7 @@ Kubernetes clusters are composed of a set of physical or virtual machines called
 
 [^k8sarch]: Available at [https://github.com/kubernetes/website/blob/release-1.19/static/images/docs/post-ccm-arch.png](https://github.com/kubernetes/website/blob/release-1.19/static/images/docs/post-ccm-arch.png); accessed Jan, 4th 2021
 
-Using Kubernetes as a container orchestration engine for running microservice-oriented applications brings several of advantages:
+Using Kubernetes as a container orchestration engine for deploying and managing microservice-oriented applications brings several of advantages:
 
 **Resource Management**: Firstly, Kubernetes allows to efficiently manage compute resources used by different service instances. Each container can specify how many compute resources it needs to run properly and the Kubernetes scheduler will find a suitable node in the cluster for running the workload, that has enough free capacity. By this, Kubernetes allows to achieve high resource utilization across all used machines and thereby cutting down cost.
 
@@ -129,13 +129,13 @@ Using Kubernetes as a container orchestration engine for running microservice-or
 
 **Uniform and Stable API**: Additionally, Kubernetes provides a uniform and stable API for both workload and configuration management. That means, specifications for workload and its configuration can be accessed, manipulated and secured by the same mechanisms in a stable and compatible manner.
 
-**Infrastructure Abstraction Layer**: Finally, Kubernetes acts as an abstraction layer across a lot of infrastructures where one can deploy containerized workload, which makes containerized applications portable and offers flexibility in deployments.
+**Infrastructure Abstraction Layer**: Furthermore, Kubernetes acts as an abstraction layer across a lot of infrastructures where one can deploy containerized workload, which makes containerized applications portable and offers flexibility in deployments.
 Not only is Kubernetes available as a managed service on many popular cloud platforms, there are also solutions for running it in a private cloud environment and also on a development machine.
 Across all these different infrastructures Kubernetes abstracts management of example of compute, storage and network resources.
 
-\todo[inline]{extensibility of k8s allows service mesh implementations like istio, linkerd}
+**Extensibility**: Last but not least, Kubernetes comes with first-class built-in extension mechanisms for extending the Kubernetes API as well as intercepting and altering API requests on the fly. Microservices will not necessarily benefit directly from these mechanisms. Though, Kubernetes' extensible architecture has allowed and fostered a tremendous growth of its open-source community. Over the past few years, a vast number of community-driven projects building on Kubernetes and its extension mechanisms have evolved. One important category of such projects is the service mesh space, which will be discussed later on and can be of great benefit for microservice-oriented applications for overcoming some of their biggest challenges.
 
-## Challenges
+## Challenges of Microservices
 
 As mentioned earlier, there are quite a lot of benefits of implementing a microservice architecture, especially when applications and organizations grow to a large size. Also, teams implementing microservice-oriented architectures can gain a lot from containerization and deployment to a container orchestration engine like Kubernetes.
 Nevertheless, there are still some common challenges left, that microservices will face or even bring up. Although the freedom of choice in programming languages and libraries give a lot of flexibility to development teams, it also makes it hard to implement consistent cross-cutting concerns, particularly those of inter-service communication [@bryant2020servicemesh].
@@ -149,3 +149,5 @@ To make use of such mechanisms, service developers will have to implement them i
 All three components are cross-cutting functionality of inter-service communication that has to be implemented by every service or at least every used programming language. The same applies here as for traffic management, it will get really hard to implement this functionality consistently across a large fleet of microservices.
 
 **Security**: One last important cross-cutting concern is security, which will be similarly difficult to manage consistently in a microservice architecture. With increased security requirements, individual might need to offer TLS encryption for inter-service communication as well as mutual authentication of services as well as denial-of-service countermeasures and so on. Again, such functionality would have be to coded into each service.
+
+<!-- \vfill\eject -->

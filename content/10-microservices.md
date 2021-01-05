@@ -12,6 +12,10 @@ By splitting up the application's business logic into small packages, each servi
 This allows services to be developed in different programming languages, by different teams, to use their own suitable data management solution and to be deployed on completely different runtime stacks.
 The only required common denominator of the different services are the protocols and APIs for communication.
 
+![Monoliths vs. Microservices [^monolith-microservices]](../assets/scale-microservices.png)
+
+[^monolith-microservices]: Available at [https://martinfowler.com/articles/microservices.html](https://martinfowler.com/articles/microservices.html); accessed Jan, 5th 2021
+
 ## Motivation
 
 The motivation for developing and transforming applications according to the microservices architectural style is rooted in the downsides of traditionally developed monolithic software systems.
@@ -107,7 +111,7 @@ Kubernetes clusters are composed of a set of physical or virtual machines called
 
 ![Kubernetes Cluster Architecture [^k8sarch]](../assets/k8s-arch.png)
 
-[^k8sarch]: Available at [https://github.com/kubernetes/website/blob/ release-1.19/static/images/docs/post-ccm-arch.png](https://github.com/kubernetes/website/blob/release-1.19/static/images/docs/post-ccm-arch.png); accessed Jan, 4th 2021
+[^k8sarch]: Available at [https://github.com/kubernetes/website/blob/release-1.19/static/images/docs/post-ccm-arch.png](https://github.com/kubernetes/website/blob/release-1.19/static/images/docs/post-ccm-arch.png); accessed Jan, 4th 2021
 
 Using Kubernetes as a container orchestration engine for running microservice-oriented applications brings several of advantages:
 
@@ -133,12 +137,15 @@ Across all these different infrastructures Kubernetes abstracts management of ex
 
 ## Challenges
 
-As mentioned earlier, there are quite a lot of benefits of implementing a microservice architecture, especially when applications and organizations grow to a large size.
-Also, microservice-oriented architectures can gain a lot from containerization and deployment to a container orchestration engine like Kubernetes.
-Nevertheless, there are still some common challenges left, that microservices will face.
+As mentioned earlier, there are quite a lot of benefits of implementing a microservice architecture, especially when applications and organizations grow to a large size. Also, teams implementing microservice-oriented architectures can gain a lot from containerization and deployment to a container orchestration engine like Kubernetes.
+Nevertheless, there are still some common challenges left, that microservices will face or even bring up. Although the freedom of choice in programming languages and libraries give a lot of flexibility to development teams, it also makes it hard to implement consistent cross-cutting concerns, particularly those of inter-service communication [@bryant2020servicemesh].
 
-- remote calls are more expensive than in-process calls
-- different programming languages
-- traffic management
-- security
-- observability
+**Remote calls**: First of all, a challenge that arises with a microservices architecture in contrast to a monolithic architecture is that remote calls are always more expensive than in-process function calls. Even if the used protocol in inter-service communication is lightweight, microservices will always be subject to network connection availability, latency and other disruptions. Especially when services invoke a long chain of remote calls, the overall quality of service is susceptible to individual disruptions of inter-service communication.
+
+**Traffic shaping/management**: When deploying a large set of microservice, operators might want to conduct some form of traffic splitting for canary deployments or A/B testing, for example to smoothly rollout new service versions with immediate feedback before breaking the whole application. Also, operators might want to configure common rules across the whole application for service discovery, e.g. which service can talk to which particular instances group of another service.
+To make use of such mechanisms, service developers will have to implement them in every single service. Even if the code is moved into a traffic management library, there will still be the need to implement the library in every programming language used in the application. This makes it hard to implement such cross-cutting functionality consistently across all services and also complicates rolling out common changes concerning the service discovery and traffic management mechanisms.
+
+**Observability**: If microservices are running in a production environment, it's crucial to have good observability over and into how services are performing. Observability is often composed of three main components. Firstly, collecting, visualizing and monitoring metrics about application health, request as well as success rates and similar. Additionally, tracing of request duration as they go through a chain of services is critical for performance analysis and early detection of performance degradation. Finally, access logging can provide valuable data when analysis issues of individual services as well as cascading failures.
+All three components are cross-cutting functionality of inter-service communication that has to be implemented by every service or at least every used programming language. The same applies here as for traffic management, it will get really hard to implement this functionality consistently across a large fleet of microservices.
+
+**Security**: One last important cross-cutting concern is security, which will be similarly difficult to manage consistently in a microservice architecture. With increased security requirements, individual might need to offer TLS encryption for inter-service communication as well as mutual authentication of services as well as denial-of-service countermeasures and so on. Again, such functionality would have be to coded into each service.

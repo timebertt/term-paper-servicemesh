@@ -13,6 +13,7 @@
 - inter-service communication is configured/managed centrally
 - mutual Authentication
 - (Inter-Cluster communication) [^multicluster]
+- many community-supported tools and frameworks
 
 [^multicluster]: [https://www.infoq.com/articles/kubernetes-multicluster-comms/](https://www.infoq.com/articles/kubernetes-multicluster-comms/)
 
@@ -24,6 +25,8 @@ Kubernetes/VM based:
 - Linkerd
 - Conduit
 - Consul
+- Kuma
+- Traefik Maesh
 
 On Cloud Provider / Platform:
 
@@ -32,5 +35,5 @@ On Cloud Provider / Platform:
 
 ## Disadvantages
 
-- Operational overhead
-- Compute overhead
+- added complexity, ooperational overhead
+- compute overhead

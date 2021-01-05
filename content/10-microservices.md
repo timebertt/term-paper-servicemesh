@@ -1,36 +1,59 @@
 # Microservices
 
-## Definition
+## Introduction
 
-- Differentiation to Service-Oriented-Architecture
-  - mainly Microservices is SOA but defined more precisely and crisply
-- automated deployment machinery
+<!-- - Differentiation to Service-Oriented-Architecture
+  - mainly Microservices is SOA but defined more precisely and crisply -->
 
 The microservice architectural style [@fowler2014microservices] has been the go-to architecture for building modern large-scale applications for a couple of years now.
-In comparison to traditional monolithic applications, microservice-oriented applications are composed of a suite of small service units, each running in its own process, instead of a large executable running in a single process.
-Every service provides a single aspect of the application's business logic and can communicate with other services via lightweight protocols such as HTTP(S).
-Now, that the application's business logic is decomposed into small packages, each service can be developed, tested, released and deployed individually and independently of other components of the software.
+In comparison to traditional monolithic applications, microservice-oriented applications are composed of a suite of small service units, each running in their own process, instead of a large executable running in a single process.
+Every service provides only a single aspect of the application's business logic and communicates with other services via lightweight protocols such as HTTP(S).
+By splitting up the application's business logic into small packages, each service can be developed, tested, released and deployed individually and independently of other services.
 This allows services to be developed in different programming languages, by different teams, to use their own suitable data management solution and to be deployed on completely different runtime stacks.
 The only required common denominator of the different services are the protocols and APIs for communication.
 
 ## Motivation
 
-The motivation for developing and refactoring applications in a microservices-oriented architecture comes from the downsides of traditionally developed monolithic software systems.
-When changing a given component of such an application or adding a single feature, the whole application has to be built, tested and deployed.
-Oftentimes, it's even quite difficult to run an instance of such applications on a development machine.
+The motivation for developing and transforming applications according to the microservices architectural style is rooted in the downsides of traditionally developed monolithic software systems.
+When changing a given component of such an application or adding a new feature, the whole application has to be built, tested and deployed.
+Oftentimes, it's quite difficult to run an instance of such applications on a development machine, so it becomes tedious and cumbersome to develop with prolonged turnaround times.
 Additionally, all components of monoliths have to be written in the same programming language and are thus tied to the same compiler and library versions and have to be deployed on the same runtime stack.
 All of these factors tend to foster high coupling of software components and slow down development and innovation speed as well as release and deployment frequency.
-Lastly, the options of scaling a monolithic application are limited to deploying multiple instances of the whole application and balancing load across them as soon as demand for some components increases.
+Also, the options of scaling a monolithic application are limited to deploying multiple instances of the whole application and balancing load across them as soon as demand for some components increases.
 
-As the size of the product grows with increasing demand for new features and higher usage, it gets complicated to scale further in the means of people, features and application usage.
+As the size of the product grows with increasing demand for new features and higher usage rates, it gets more complicated to scale further by means of team size, new features and application usage.
 A microservices-oriented architecture can help address these challenges by decomposing applications into small services.
 
-\todo[inline]{microservices allow the following / have these characteristics:}
+## Characteristics
+
+Although there is no formal definition for this architectural style, the most prominent and common characteristics of microservice-oriented architectures are the following: [@fowler2014microservices]
+
+\todo[inline]{describe characteristics}
+
+**Componentization via Services**: 
+
+**Organized around Business Capabilities**: 
+
+**Products not Projects**: 
+
+**Smart endpoints and dumb pipes**: 
+
+**Decentralized Governance**: 
+
+**Decentralized Data Management**: 
+
+**Infrastructure Automation**: 
+
+**Design for failure**: 
+
+**Evolutionary Design**: 
+
 
 - individual development and deployment of each service
 - using different programming languages
 - individual scaling of services
 - DevOps culture (teams operate their own services)
+- automated deployment machinery
 
 ## Containerizing Microservices
 
@@ -42,6 +65,10 @@ Containers on the other hand – e.g. in their well-known implementation by Doc
 This means, that containers don't virtualize any hardware and don't run their own operating system, instead all containers running on one host machine share the same kernel.
 Thus, containers are much more lightweight, faster in startup and more efficient than traditional virtual machines.
 And because of this, a single server or worker machine may easily host as many as 100 containers at the same time, allowing to achieve high resource utilization by sharing a host's compute resources between diverse workloads.
+
+![Containers vs. Virtual Machines [^c-vs-vm]](../assets/containers-vs-vms.png)
+
+[^c-vs-vm]: Available at [https://www.docker.com/blog/containers-replacing-virtual-machines/](https://www.docker.com/blog/containers-replacing-virtual-machines/); accessed Jan, 5th 2021
 
 Additionally, container virtualization provides mechanisms to conveniently package, version and ship software in container images, which can be published to and retrieved from image registries.
 When building application container images, typically a base image is selected and afterwards the component's executable, additional libraries and dependencies are added to the image, each resulting in a new image layer.
@@ -80,7 +107,7 @@ Kubernetes clusters are composed of a set of physical or virtual machines called
 
 ![Kubernetes Cluster Architecture [^k8sarch]](../assets/k8s-arch.png)
 
-[^k8sarch]: Available at [https://github.com/kubernetes/website/blob/release- 1.19/static/images/docs/post-ccm-arch.png](https://github.com/kubernetes/website/blob/release-1.19/static/images/docs/post-ccm-arch.png); accessed Jan, 4th 2021
+[^k8sarch]: Available at [https://github.com/kubernetes/website/blob/ release-1.19/static/images/docs/post-ccm-arch.png](https://github.com/kubernetes/website/blob/release-1.19/static/images/docs/post-ccm-arch.png); accessed Jan, 4th 2021
 
 Using Kubernetes as a container orchestration engine for running microservice-oriented applications brings several of advantages:
 
@@ -105,6 +132,10 @@ Across all these different infrastructures Kubernetes abstracts management of ex
 \todo[inline]{extensibility of k8s allows service mesh implementations like istio, linkerd}
 
 ## Challenges
+
+As mentioned earlier, there are quite a lot of benefits of implementing a microservice architecture, especially when applications and organizations grow to a large size.
+Also, microservice-oriented architectures can gain a lot from containerization and deployment to a container orchestration engine like Kubernetes.
+Nevertheless, there are still some common challenges left, that microservices will face.
 
 - remote calls are more expensive than in-process calls
 - different programming languages

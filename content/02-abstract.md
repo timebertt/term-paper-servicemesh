@@ -8,6 +8,7 @@ Though, implementing applications in such a distributed fashion also brings a nu
 A Service Mesh can help solving these challenges by abstracting inter-service communication and moving it out of individual services. Every service is equipped with a "sidecar" proxy governing service-to-service communication. This way common rules and mechanisms for communication can be applied without touching the services' codebase.
 
 \todo[inline]{service mesh brings back focus to application business logic}
+\todo[inline]{connect the dots between Containerization, Kubernetes and Service Mesh in the context of microservices}
 
 \end{small}
 \end{abstract}

@@ -4,4 +4,6 @@
 
 \lstlistoflistings -->
 
+\todo[inline]{Improve link styling}
+
 \listoftodos

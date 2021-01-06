@@ -95,7 +95,7 @@ By this, containerized microservices can be scaled in a fine-grained manner in c
 
 \todo[inline]{isolation?}
 
-## Kubernetes as a Deployment underlay
+## Kubernetes as a Deployment underlay {#sec:kubernetes}
 
 Once an application is split into a suite of microservices and packaged as a set of container images, it needs some infrastructure and platform to be run the containers on.
 Even though, containerization provides a number of advantages for building microservice-oriented applications, as discussed above, it doesn't solve the problem of running, managing and connecting a fleet of containerized services.
@@ -133,6 +133,7 @@ Using Kubernetes as a container orchestration engine for deploying and managing 
 Not only is Kubernetes available as a managed service on many popular cloud platforms, there are also solutions for running it in a private cloud environment and also on a development machine.
 Across all these different infrastructures Kubernetes abstracts management of example of compute, storage and network resources.
 
+<span id="k8s:extensibility"></span>
 **Extensibility**: Last but not least, Kubernetes comes with first-class built-in extension mechanisms for extending the Kubernetes API as well as intercepting and altering API requests on the fly. Microservices will not necessarily benefit directly from these mechanisms. Though, Kubernetes' extensible architecture has allowed and fostered a tremendous growth of its open-source community. Over the past few years, a vast number of community-driven projects building on Kubernetes and its extension mechanisms have evolved. One important category of such projects is the service mesh space, which will be discussed later on and can be of great benefit for microservice-oriented applications for overcoming some of their biggest challenges.
 
 ## Challenges of Microservices

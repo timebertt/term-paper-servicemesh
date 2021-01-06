@@ -17,9 +17,9 @@ With this architecture, the service proxy is on the critical path for all applic
 
 ## Architecture
 
-A service mesh is typically composed of two parts: the data plane and the control plane [@klein2017servicemeshplanes].
+A service mesh is typically composed of two parts: the data plane and the control plane.
 In short, the **data plane** most prominently consists of the service proxy, which routes, secures and observes networking traffic between different service instances. It "touches every packet/request in the system [and is] responsible for service discovery, health checking, routing, load balancing, authentication/authorization, and observability".
-The **control plane** on the other hand is responsible for policy and configuration management of the service proxies running in the data plane. It doesn't touch any actual application traffic and only configures service proxies according to the user's given intent.
+The **control plane** on the other hand is responsible for policy and configuration management of the service proxies running in the data plane. It doesn't touch any actual application traffic and only configures service proxies according to the user's given intent [@klein2017servicemeshplanes].
 
 Conceptually, implementations of both planes may be interchangeable, meaning the same data plane (service proxy) can be used by different control plane implementations, and control plane implementations might support using different data planes.
 
@@ -31,30 +31,38 @@ A service mesh's data plane is charged with the following tasks:
 
 **Service discovery**: In order to communicate with other services, the service proxy has to discover where instances of the desired services are running and which of them it should connect to, e.g. based on the geographical placement and network latency. This typically involves leveraging some sort of lookup mechanism like DNS name resolution or talking to the container orchestration API to find available endpoints of a service.
 
-**Health checking**: Once the service proxy has discovered available endpoints of other services, it often performs additional health checking measures, in order to route traffic only to healthy service instances. This may include active health checks, i.e. out-of-band API calls to dedicated health endpoints of other services. Additionally, proxies may perform passive health checking, e.g. in the form of outlier detection. This means, using quality of service metrics like request success rate or request latency of active connections as indicators of upstream healthiness [@envoydocs].
+**Health checking**: Once the service proxy has discovered available endpoints of other services, it often performs additional health checking measures, in order to route traffic only to healthy service instances. This may include active health checks, i.e. out-of-band API calls to dedicated health endpoints of peer services. Additionally, proxies may perform passive health checking, e.g. in the form of outlier detection. This means, using quality of service metrics like request success rate or request latency of active connections as indicators of upstream healthiness [@envoydocs].
 
-**Traffic routing**:
+**Traffic management**: This is probably the most comprehensive task of the data plane and often consists of a lot of different aspects:
 
-- load balancing
-- traffic shaping
-- circuit breaking
-- timeouts
-- retries
-- rate limiting
+- routing based on the used protocol, e.g. HTTP path, query or header based routing (layer 7 routing)
+- routing based on metadata information, e.g. zone-aware routing
+- load balancing across upstream endpoints according to different configured algorithms like weighted round robin, ring hash or random load balancing
+- percentage or hash based traffic splitting and shifting between multiple upstream endpoints
+- traffic manipulation, e.g. host and prefix rewriting or redirects
+- circuit breaking and applying back pressure during local load spikes
+- applying timeouts to upstream requests
+- automatic retries on upstream failure responses
+- global and distributed rate limiting
+- upstream connection pooling
+- automatic traffic compression
 
-**Load Balancing**:
+The options for traffic management in the data plane are manifold and heavily depend on what the used service proxy offers.
 
-**Authentication and authorization**:
+**Encryption**: The data plane is often configured to provide TLS encrypted communication between different service instances. This relieves developers from the responsibility to properly secure their services and to implement the required security standards. As encryption is a security-sensitive concern, managing it centrally and consistently across the whole data plane decreases the number of an application's external dependencies, that may include critical vulnerabilities. Thereby the application's attack surface can be reduced to a minimum.
 
-**Observability**:
+**Authentication and authorization**: Many data plane implementations provide different mechanisms for authenticating clients and other service proxies. This is often achieved in the form of mutual TLS authentication using public key infrastructure, which hands out client certificates to all service proxies, that are signed and can be verified by an application-wide certificate authority.
+Additionally, service proxies may implement additional mechanisms for authorizing clients and other services to access only a given subset of a service's API endpoints and enforce other similar restrictions for securing inter-service communication.
 
-**Ingress/Edge proxy**:
+**Observability**: Another task of the data plane is to collect metrics and traces and output logs for each request to offer insights into the distributed traffic flow of a microservice-oriented application. On the one hand, this can help development and operations teams to understand, analyze and detect outages, performance degradation and other problems. On the other hand, the collected metrics regarding service performance, load and instance utilizations can be used to trigger automated operation decisions like automatic scaling of services or alerting an operations team as soon as a problematic behavior occurs.
+
+**Ingress / API Gateway**: While the main concern of the data plane is to manage inter-service communication – called east-west traffic – some data plane implementations also offer support for running the service proxy as an API Gateway that manages ingress traffic from outside the application – called north-south traffic. Although this is not strictly required from a data plane implementation, running the same service proxy also at the edge of the application brings a number of advantages. For example, the exact same mechanisms for controlling, securing and observing traffic can be applied to the application's ingress traffic in a consistent manner. This brings the same configuration options and experience also to the entry point of an application.
 
 ### The Control Plane
 
 - central configuration API
-- configuring service proxies
-- making telemetry data accessible (visualization/UIs?dashboards/...)
+- configuring service proxies (optionally injecting it into workload)
+- making telemetry data accessible (visualization/UIs/dashboards/...)
 
 ## Popular Implementations
 
@@ -78,7 +86,7 @@ On Cloud Provider / Platform:
 - language-agnostic
 - decoupling services
 - gradual/canary rollout
-- inter-service communication is configured/managed centrally
+- inter-service communication is configured / managed centrally
 - mutual Authentication
 - (Inter-Cluster communication) [^multicluster]
 - ecosystem / many community-supported tools and frameworks

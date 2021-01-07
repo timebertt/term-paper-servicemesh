@@ -75,21 +75,24 @@ The next step is to apply the user-given configuration for the behavior of the d
 
 ## Popular Implementations {#sec:implementations}
 
-Kubernetes based:
+Over the past few years, a lot of excitement about service mesh technology has built up in the cloud-native community. This has fostered development of numerous service mesh implementations, both open-source and proprietary ones.
+Some implementations reuse already existing and well-established service proxies for the data plane (e.g. NGINX), other use newer technologies (e.g. Envoy, traefik) and others implement an own proxy (e.g. linkerd-proxy).
 
-- Istio (also supports single VMs and Consul) [@istiodocs]
+Some of the most popular service mesh implementations are the following: [^servicemeshlandscape]
+
+- Istio [@istiodocs]
 - Linkerd [@linkerddocs]
-- Conduit (merged into Linkerd 2.0)
 - Consul
 - Kuma
 - Traefik Maesh
+- Open Service Mesh
 - NGINX Service Mesh
-
-On Cloud Provider / Platform:
-
 - AWS App Mesh
 - GCP Anthos Service Mesh
-- GCP [Traffic Director](https://cloud.google.com/traffic-director/)
+
+[^servicemeshlandscape]: See [https://layer5.io/landscape](https://layer5.io/landscape) for a more extensive and detailed list of service mesh implementations.
+
+Most of the mentioned implementations are either entirely Kubernetes-based or support Kubernetes as one of their platform choices. The reason for this is that Kubernetes features [well-defined mechanisms for extending its API and workload lifecycle](#k8s:extensibility). This allows tools to offer first-class integration with the Kubernetes API and users to manage the service mesh itself alongside the actual workload. This makes it easy for teams to implement and operate a service mesh in their microservice-oriented applications. Furthermore, the whole ecosystem and community around the Kubernetes open-source project has grown immensely, meaning there are countless tools, frameworks and projects for distributed tracing, observability, security and other cross-cutting concerns, that integrate well with Kubernetes.
 
 ## Advantages
 

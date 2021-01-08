@@ -82,35 +82,46 @@ Some of the most popular service mesh implementations are the following: [^servi
 
 - Istio [@istiodocs]
 - Linkerd [@linkerddocs]
-- Consul
+- Consul Connect
 - Kuma
 - Traefik Maesh
 - Open Service Mesh
 - NGINX Service Mesh
 - AWS App Mesh
 - GCP Anthos Service Mesh
+- Azure Service Fabric Mesh
 
-[^servicemeshlandscape]: See [https://layer5.io/landscape](https://layer5.io/landscape) for a more extensive and detailed list of service mesh implementations.
+[^servicemeshlandscape]: See [https://servicemesh.es/](https://servicemesh.es/) for a more extensive and detailed list of available service mesh implementations.
 
 Most of the mentioned implementations are either entirely Kubernetes-based or support Kubernetes as one of their platform choices. The reason for this is that Kubernetes features [well-defined mechanisms for extending its API and workload lifecycle](#k8s:extensibility). This allows tools to offer first-class integration with the Kubernetes API and users to manage the service mesh itself alongside the actual workload. This makes it easy for teams to implement and operate a service mesh in their microservice-oriented applications. Furthermore, the whole ecosystem and community around the Kubernetes open-source project has grown immensely, meaning there are countless tools, frameworks and projects for distributed tracing, observability, security and other cross-cutting concerns, that integrate well with Kubernetes.
 
 ## Advantages
 
-- cross-cutting concerns of inter-service communication abstracted and extracted
-- language-agnostic
-- improved reliability
-- improved security
-- decoupling services
-- consistent traffic configuration / management across the whole application
-- supports hybrid deployment scenarios
-- gradual traffic shifting / canary rollout
-- inter-service communication is configured / managed centrally
-- (Inter-Cluster communication) [^multicluster]
-- ecosystem / many community-supported tools and frameworks
+Large microservice-oriented applications tend to be difficult to develop and operate at scale. One of the biggest challenges, application teams will face, is to implement dynamic, efficient, secure and observable networking in such a distributed system with many services. Service-to-service communication is what powers microservices and actually brings value to them [@redhatservicemesh].
+As this communication touches all application services, it is a cross-cutting concern. With this, it shouldn't be needed to implement those requirements repeatedly in every service or programming language and not even in every application.
+By using service mesh, these cross-cutting concerns of inter-service communication can be abstracted and thereby extracted out of application and service code. A service mesh seamlessly integrates into the application layer and makes the underlying network transparent.
+And by abstracting all these cross-cutting concerns, a service mesh brings back the developers' focus to their service's business logic.
 
-[^multicluster]: [https://www.infoq.com/articles/kubernetes-multicluster-comms/](https://www.infoq.com/articles/kubernetes-multicluster-comms/)
+As a service mesh uses an out-of-process architecture, it can be leveraged by applications written in every programming language and in any number of different programming languages. The only requirement is the use of standard protocols like TCP, HTTP, TLS and so on, which most applications which involve inter-service communication already do [@envoydocs]. Another advantage is, that with a service mesh all service-to-service communication can be centrally and consistently designed, configured and managed via an API as opposed to distributed and service-specific configuration files or APIs.
+
+Furthermore, a service mesh can provide increased reliability of inter-service communication and prohibit cascading failures in a distributed system [@lyftcasestudy]. By leveraging automatic retries, outlier detection and different service discovery mechanisms, services are protected against peer unhealthiness and can automatically perform failover measures. Also, with the possibility to centrally manage identity, authentication and authorization of service proxies, the security of inter-service communication can be increased, while the attack surface for vulnerabilities is decreased.
+
+Additionally, with a service mesh novel approaches for rolling out single services of an application in a graceful manner can be taken and implemented. Traffic can be shaped and gradually shifted from one location to another or split between multiple versions according to different policies. During this, service performance and quality can be monitored in harmonized and well-arranged dashboards [@bryant2020servicemesh].
+
+Although service meshes will unroll their full potential and value when utilized in large-scale deployments of microservices, they can also support the migration of already existing application, that were developed in a monolithic style, to a microservices-oriented style, by connecting legacy applications with factored-out services. In the same way, they also support co-located or hybrid deployment scenarios, e.g. with parts of an application deployed in the public cloud, while another part is running in a private cloud environment. For some use cases, like geographically distributed applications, some service mesh implementations also provide multi-cluster setups, where microservices running on different Kubernetes clusters are connected to one single, logical service mesh [@istiodocs] [@jenkins2019multicluster].
+
+Last but not least, another advantage of using a service mesh is the very active community around this topic and cloud-native technology in general. Thus, there are quite a lot of community-supported tools and open-source projects, that application teams can profit from.
 
 ## Disadvantages
 
-- added complexity, operational overhead
+- added complexity, steeper learning curve, operational overhead
 - compute overhead
+- latency overhead, two additional hops (over localhost in kubernetes)
+- implementation lock-in / lack of portability between service meshes / proxies
+
+## Future work
+
+- userspace networking (ref cillium, eBPF) to reduce network overhead and latency
+- cillium: proxy sharing between services to reduce compute overhead
+- Service Mesh Interface for standardization of Control Plane API and portability
+- Universal data plane API for standardization of Data Plane API and pluggable service proxies

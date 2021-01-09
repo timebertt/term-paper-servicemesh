@@ -73,6 +73,8 @@ The next step is to apply the user-given configuration for the behavior of the d
 
 **Aggregating telemetry data**: More over, the control plane takes care of aggregating and exposing the metrics and traces collected by the data plane in a human-consumable way. In most implementations, other well-known open-source projects such as Prometheus, Grafana, Jaeger, Zipkin and Kiali are leveraged to make telemetry data accessible using some form of query-language and visualization in well-arranged dashboards [@istiodocs]. This allows development and operations teams to get deep analytical insights into service performance and the behavior of distributed request chains.
 
+![Linkerd Grafana dashboard [@linkerddocs]](../assets/linkerd-grafana-top.png)
+
 ## Popular Implementations {#sec:implementations}
 
 Over the past few years, a lot of excitement about service mesh technology has built up in the cloud-native community. This has fostered development of numerous service mesh implementations, both open-source and proprietary ones.
@@ -109,6 +111,8 @@ As a service mesh uses an out-of-process architecture, it can be leveraged by ap
 Furthermore, a service mesh can provide increased reliability of inter-service communication and prohibit cascading failures in a distributed system [@lyftcasestudy]. By leveraging automatic retries, outlier detection and different service discovery mechanisms, services are protected against peer unhealthiness and can automatically perform failover measures. Also, with the possibility to centrally manage identity, authentication and authorization of service proxies, the security of inter-service communication can be increased, while the attack surface for vulnerabilities is decreased.
 
 Additionally, with a service mesh novel approaches for rolling out single services of an application in a graceful manner can be taken and implemented. Traffic can be shaped and gradually shifted from one location to another or split between multiple versions according to different policies. During this, service performance and quality can be monitored in harmonized and well-arranged dashboards [@bryant2020servicemesh].
+
+![Service Mesh canary rollout [@posta2019servicemeshapi]](../assets/service-mesh-canary-rollout.jpg)
 
 Although service meshes will unroll their full potential and value when utilized in large-scale deployments of microservices, they can also support the migration of already existing application, that were developed in a monolithic style, to a microservices-oriented style, by connecting legacy applications with factored-out services. In the same way, they also support co-located or hybrid deployment scenarios, e.g. with parts of an application deployed in the public cloud, while another part is running in a private cloud environment. For some use cases, like geographically distributed applications, some service mesh implementations also provide multi-cluster setups, where microservices running on different Kubernetes clusters are connected to one single, logical service mesh [@istiodocs] [@jenkins2019multicluster].
 

@@ -2,19 +2,12 @@
 
 ## Introduction
 
-<!-- - Differentiation to Service-Oriented-Architecture
-  - mainly Microservices is SOA but defined more precisely and crisply -->
-
 The microservice architectural style [@fowler2014microservices] has been the go-to architecture for building modern large-scale applications for a couple of years now.
 In comparison to traditional monolithic applications, microservice-oriented applications are composed of a suite of small service units, each running in their own process, instead of a large executable running in a single process.
 Every service provides only a single aspect of the application's business logic and communicates with other services via lightweight protocols such as HTTP(S).
-By splitting up the application's business logic into small packages, each service can be developed, tested, released and deployed individually and independently of other services.
-This allows services to be developed in different programming languages, by different teams, to use their own suitable data management solution and to be deployed on completely different runtime stacks.
-The only required common denominator of the different services are the protocols and APIs for communication.
-
-![Monoliths vs. Microservices [^monolith-microservices]](../assets/scale-microservices.png)
-
-[^monolith-microservices]: Available at [https://martinfowler.com/articles/microservices.html](https://martinfowler.com/articles/microservices.html); accessed Jan, 5th 2021
+By splitting up the application's business logic into small packages, each service can be developed, tested, released, deployed and scaled individually and independently of other services.
+This allows services to be developed in different programming languages, by different teams, to use an individual data management solution and to be deployed on completely different runtime stacks.
+The only required common denominator of different services are the protocols and APIs for communication.
 
 ## Motivation
 
@@ -22,21 +15,21 @@ The motivation for developing and transforming applications according to the mic
 When changing a given component of such an application or adding a new feature, the whole application has to be built, tested and deployed.
 Oftentimes, it's quite difficult to run an instance of such applications on a development machine, so it becomes tedious and cumbersome to develop with prolonged turnaround times.
 Additionally, all components of monoliths have to be written in the same programming language and are thus tied to the same compiler and library versions and have to be deployed on the same runtime stack.
-All of these factors tend to foster high coupling of software components and slow down development and innovation speed as well as release and deployment frequency.
+All of these factors tend to foster high coupling of software components and slow down development and innovation speed as well as decrease release and deployment frequency.
 Also, the options of scaling a monolithic application are limited to deploying multiple instances of the whole application and balancing load across them as soon as demand for some components increases.
 
 As the size of the product grows with increasing demand for new features and higher usage rates, it gets more complicated to scale further by means of team size, new features and application usage.
-A microservices-oriented architecture can help address these challenges by decomposing applications into small services.
+A microservices-oriented architecture can help address these challenges by decomposing applications into small service units.
+
+![Monoliths vs. Microservices [@fowler2014microservices]](../assets/scale-microservices.png)
 
 ## Characteristics
 
 Although there is no formal definition for this architectural style, the most prominent and common characteristics of microservice-oriented architectures are the following: [@fowler2014microservices]
 
-\todo[inline]{describe characteristics}
+**Componentization via Services**: Splitting up systems into components, that are independently replaceable and upgradeable, and plugging them together to form an entire application is very common in the software industry. Microservices are also based on componentization and their components are individual services. Though, the key factor for microservices is that their components are services running in their own processes, that are plugged together by communicating over standard network protocols or remote procedure calls. This is different to componentization via libraries or modules, where components are linked together into a single executable and communicate via in-memory function calls. This difference allows microservices to be arbitrarily distributed between machines, making it a distributed system.
 
-**Componentization via Services**: 
-
-**Organized around Business Capabilities**: 
+**Organized in service teams**: When organizations build microservices-oriented applications, their teams are typically organized in service teams. These teams are focused on business capabilities of a small set of services rather than having teams focusing on different technical capabilities like for example UI and database specialists. This fosters strong collaboration between different areas of expertise in service teams and maps the organizations communication structure to the inter-service communication of the developed services (Conway's law). Additionally, oftentimes development teams are simultaneously responsible for operating their services in production as well, which exposes them to real-world behavior of their services. This culture is often called "DevOps".
 
 **Products not Projects**: 
 
@@ -52,11 +45,9 @@ Although there is no formal definition for this architectural style, the most pr
 
 **Evolutionary Design**: 
 
-
 - individual development and deployment of each service
 - using different programming languages
 - individual scaling of services
-- DevOps culture (teams operate their own services)
 - automated deployment machinery
 
 ## Containerizing Microservices
@@ -150,5 +141,3 @@ To make use of such mechanisms, service developers will have to implement them i
 All three components are cross-cutting functionality of inter-service communication that has to be implemented by every service or at least every used programming language. The same applies here as for traffic management, it will get really hard to implement this functionality consistently across a large fleet of microservices.
 
 **Security**: One last important cross-cutting concern is security, which will be similarly difficult to manage consistently in a microservice architecture. With increased security requirements, individual might need to offer TLS encryption for inter-service communication as well as mutual authentication of services as well as denial-of-service countermeasures and so on. Again, such functionality would have be to coded into each service.
-
-<!-- \vfill\eject -->

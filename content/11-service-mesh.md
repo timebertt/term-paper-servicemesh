@@ -127,7 +127,11 @@ One more disadvantage of leveraging a service mesh is the lack of portability be
 
 ## Future work
 
-- userspace networking (ref cillium, eBPF) to reduce network overhead and latency
-- cillium: proxy sharing between services to reduce compute overhead
-- Service Mesh Interface for standardization of Control Plane API and portability
+Connecting to the aforementioned disadvantages, there is some ongoing effort in addressing some drawbacks of service meshes, especially those regarding networking overhead and added latency as well as inter-compatibility between different implementations.
+
+One of those efforts is the recent work on leveraging modern in-kernel networking capabilities for Kubernetes and cloud-native infrastructure.
+For example, the Cilium project is utilizing the extended Berkley Packet Filter (eBPF) functionality of the Linux kernel, which provides mechanisms to "execute bytecode at various hook points in a safe manner" [@ciliumio]. By this, Cilium is able to provide highly-efficient networking, load balancing and policy enforcement for applications running on Kubernetes, which combines well with service mesh technology like Istio and can lower latency and reduce the introduced networking overhead in general. Also, there is ongoing work on sharing the service proxy across multiple service instances which allows to reduces the compute overhead as well.
+
+Regarding the portability drawback of service mesh technology, there is a joint community-effort for establishing a standard interface for service mesh implementations on Kubernetes. The Service Mesh Interface (SMI) specification covers common functionality that most implementations already support like traffic policy, telemetry and management. The goal of this effort is to provide implementation-agnostic APIs, that application developers can use for integrating service mesh technology in their microservices but without tieing to one specific implementation. When applications only use the SMI API, they win back flexibility and portability between the supported implementations, unless they don't rely on any implementation-specific functionality [@smispecio].
+
 - Universal data plane API for standardization of Data Plane API and pluggable service proxies

@@ -95,6 +95,8 @@ Some of the most popular service mesh implementations are the following: [^servi
 
 Most of the mentioned implementations are either entirely Kubernetes-based or support Kubernetes as one of their platform choices. The reason for this is that Kubernetes features [well-defined mechanisms for extending its API and workload lifecycle](#k8s:extensibility). This allows tools to offer first-class integration with the Kubernetes API and users to manage the service mesh itself alongside the actual workload. This makes it easy for teams to implement and operate a service mesh in their microservice-oriented applications. Furthermore, the whole ecosystem and community around the Kubernetes open-source project has grown immensely, meaning there are countless tools, frameworks and projects for distributed tracing, observability, security and other cross-cutting concerns, that integrate well with Kubernetes.
 
+\todo[inline]{mention raw VM support}
+
 ## Advantages
 
 Large microservice-oriented applications tend to be difficult to develop and operate at scale. One of the biggest challenges, application teams will face, is to implement dynamic, efficient, secure and observable networking in such a distributed system with many services. Service-to-service communication is what powers microservices and actually brings value to them [@redhatservicemesh].
@@ -114,10 +116,14 @@ Last but not least, another advantage of using a service mesh is the very active
 
 ## Disadvantages
 
-- added complexity, steeper learning curve, operational overhead
-- compute overhead
-- latency overhead, two additional hops (over localhost in kubernetes)
-- implementation lock-in / lack of portability between service meshes / proxies
+Although a service mesh brings a lot of benefits to microservice-oriented applications, there are also some disadvantages from using it:
+
+First of all, leveraging a service mesh adds more complexity to an application, especially when using a feature-rich implementation such as Istio. Developers and operators have to understand the additional concepts of a service mesh and the used service proxy. They need to learn, how to properly integrate, install, manage and debug a service mesh in their applications.
+All this brings a clear operational overhead to the application, as well as an even steeper learning curve [@bryant2020servicemesh].
+
+Also, with the out-of-process architecture employed in a service mesh, there is also an overhead in compute resource usage. Deploying a service proxy instance next to every running service instance of an application will result in additional cost for computational resources. In addition to compute overhead, there is also some networking overhead in inter-service communication. That's because every connection between two services has to go through two service proxies – one on the egress side and one on the ingress side – which means two additional network hops. Though, in most service mesh implementations service proxies are deployed in a way, that they can communicate with the service instance over the loopback network interface (`localhost`), e.g. as an additional container in a Kubernetes Pod. Still, there will be at least a little bit of added latency.
+
+One more disadvantage of leveraging a service mesh is the lack of portability between different implementations. As this technology is comparably new and there is a lot of excitement around it, many different implementations have come up over the last few years and haven't agreed on common standards. Though, many implementations use the Envoy proxy as a data plane, it is currently not possible to choose between different proxies in most implementations. Also, APIs and also mechanisms of configuring and managing a service mesh tend to diverge significantly, which makes it difficult to exchange the used service mesh implementation, once an application has tightly integrated with it. Additionally, the feature set of different implementations can also vary. That means, that an application might get locked-in to this specific implementation, if it is dependent on certain feature that is not available in other implementations. Also, when using a proprietary service mesh implementation or even a managed service mesh on a cloud provider, there is a high chance of being locked-in. All of this decreases an applications portability and teams developing large-scale applications might want to avoid getting locked-in [@posta2019servicemeshapi].
 
 ## Future work
 

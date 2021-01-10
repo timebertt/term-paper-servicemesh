@@ -28,5 +28,6 @@ resource-path:
 eol: lf
 
 filters:
+- ./filters/remove-date.sh
 - pandoc-crossref
 - pandoc-citeproc

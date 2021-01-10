@@ -1,6 +1,6 @@
 \newpage
 
 \todo[inline]{Improve inline link styling (boxing?)}
-\todo[inline]{Add enrollment number}
+\todo[inline]{fine-tune paragraphs and footnote links}
 
 \listoftodos

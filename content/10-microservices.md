@@ -62,7 +62,7 @@ And because of this, a single server or worker machine may easily host as many a
 Additionally, container virtualization provides mechanisms to conveniently package, version and ship software in container images, which can be published to and retrieved from image registries.
 When building application container images, typically a base image is selected and afterwards the component's executable, additional libraries and dependencies are added to the image, each resulting in a new image layer.
 By that, a given application component is always bundled with all of its needed runtime dependencies, providing a well-defined runtime environment and self-contained executable package.
-Though, because of the layered nature of container images, common base images and runtime versions can be cached and reused.
+Because of the layered nature of container images, common base images and runtime versions can be cached and reused.
 
 The process of running a containerized application is very simple and only requires a compatible container runtime and access to the container registry.
 Before container can be started, the respective container image or missing layers thereof are pulled from the registry.
@@ -75,8 +75,6 @@ The same applies, if development teams want to use a different set of libraries 
 
 Because containers are so lightweight and can be started up so quickly, it is also very easy to scale individual containerized services by just starting new instances of the same image and thereby increasing the amount of compute resources a single service can use.
 By this, containerized microservices can be scaled in a fine-grained manner in comparison to monolithic applications, because the amount of load an individual component can handle, can now be increased simply by starting new containers of that service, while a monolithic application can only increase the capacity of its components in an equal manner.
-
-\todo[inline]{isolation?}
 
 ## Kubernetes as a Deployment underlay {#sec:kubernetes}
 

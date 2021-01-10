@@ -4,6 +4,6 @@
 
 \lstlistoflistings -->
 
-\todo[inline]{Improve link styling}
+\todo[inline]{Improve inline link styling (boxing?)}
 
 \listoftodos

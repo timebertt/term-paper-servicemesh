@@ -1,9 +1,9 @@
 # Service Mesh
 
-A service mesh is another abstraction layer that builds right on top of the previously discussed abstractions. But, instead of abstracting specific hardware (Virtual Machines), abstracting the runtime environment (Containers) or a specific infrastructure (Kubernetes) it abstracts inter-service communication of microservices. It directly addresses the common challenges in service-to-service communication of a large distributed and microservice-oriented systems discussed above.
-Though, instead of adding another platform or deployment layer, the abstraction done in a service mesh integrates with microservices on the application layer in a side-by-side manner.
+A service mesh is able to manage all traffic between components in a distributed system like a microservices-oriented application. It hooks into inter-service communication by transparently routing all traffic through service proxies. The service proxies operate on the application layer, meaning it is able to extract important protocol metadata (e.g. from HTTP Headers) for making routing, load balancing and retry decisions. By routing all traffic through smart proxies, a service mesh can abstract inter-service communication in order to consistently implement cross-cutting concerns of the distributed system.
 
-\todo[inline]{rewrite?}
+A service mesh can be viewed as another abstraction layer that often builds right on top of the previously discussed abstractions, i.e. containers and container orchestration. But, instead of abstracting specific hardware like virtual machines, abstracting the runtime environment like container or a specific infrastructure like Kubernetes it abstracts service-to-service communication. Though, instead of adding another platform or deployment layer, the abstraction done in a service mesh integrates tightly with services on the application layer in a side-by-side manner.
+With this, a service mesh is able to address the common challenges in service-to-service communication of microservice-oriented systems discussed above.
 
 ## Basic Idea
 
@@ -78,7 +78,7 @@ The next step is to apply the user-given configuration for the behavior of the d
 ## Popular Implementations {#sec:implementations}
 
 Over the past few years, a lot of excitement about service mesh technology has built up in the cloud-native community. This has fostered development of numerous service mesh implementations, both open-source and proprietary ones.
-Some implementations reuse already existing and well-established service proxies for the data plane (e.g. NGINX), other use newer technologies (e.g. Envoy, traefik) and others implement an own proxy (e.g. linkerd-proxy).
+Some implementations reuse already existing and well-established service proxies for the data plane (e.g. NGINX), other use comparably new technologies (e.g. Envoy, traefik) and others implement an own proxy (e.g. linkerd-proxy).
 
 Some of the most popular service mesh implementations are the following: [^servicemeshlandscape]
 
@@ -97,7 +97,7 @@ Some of the most popular service mesh implementations are the following: [^servi
 
 Most of the mentioned implementations are either entirely Kubernetes-based or support Kubernetes as one of their platform choices. The reason for this is that Kubernetes features [well-defined mechanisms for extending its API and workload lifecycle](#k8s:extensibility). This allows tools to offer first-class integration with the Kubernetes API and users to manage the service mesh itself alongside the actual workload. This makes it easy for teams to implement and operate a service mesh in their microservice-oriented applications. Furthermore, the whole ecosystem and community around the Kubernetes open-source project has grown immensely, meaning there are countless tools, frameworks and projects for distributed tracing, observability, security and other cross-cutting concerns, that integrate well with Kubernetes.
 
-\todo[inline]{mention raw VM support}
+Nevertheless, some service mesh implementations also support other orchestration models and deployment underlays. For example, Consul Connect also supports running services on other runtime platforms and Istio is able to integrate traditional VMs into the service mesh as well.
 
 ## Advantages
 

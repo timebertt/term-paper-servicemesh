@@ -1,5 +1,9 @@
 # Summary
 
-- sum up benefits of leveraging a service mesh in a microservice-oriented application
-- service mesh probably not needed / interesting for small applications
-- real value and benefit unfolds in large-scale applications
+In this paper, the microservices-oriented architectural style has been presented with the motivation behind it and its most common characteristics. It was discussed, why containerization and using Kubernetes as a deployment underlay for microservices are a great fit and which benefits they provide to teams developing and operating applications in a microservice-oriented manner. After that, the challenges that microservice-oriented applications are still left with when leveraging containerization and Kubernetes were outlined.
+Connecting to these challenges, the service mesh concept with its architectural design was introduced and shown how it is abstracting inter-service communication of microservices. Next, popular implementations of the service mesh concept were presented along with along the advantages and disadvantages of using a service mesh in a microservices-oriented application.
+With that, it was outlined which concrete problems the service mesh pattern and popular implementations are able to solve and were future work is still needed.
+Lastly, it was presented how Lyft – an early adopter and promoter of the service mesh pattern – is addressing concrete challenges in their application. It was shown, that implementing a service mesh provides powerful mechanisms to avoid cascading failure in a real-world large-scale distributed application.
+
+Using a service mesh for microservices-oriented applications allows application developers to focus on business logic of their microservices again by abstracting inter-service communication and addressing cross-cutting concerns of service-to-service communication. It provides consistent traffic management across the whole application, as well as security and observability.
+Although there are many advantages of leveraging service mesh technology, it's not a silver bullet for solving all problems of microservices. Small-scale applications might not need a service mesh and might actually be better of not dealing with additional complexity of a service mesh. The place were a service mesh is able to shine and provide real benefits is in large-scale applications with massive inter-service communication and a high number of microservices.

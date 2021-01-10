@@ -27,28 +27,20 @@ A microservices-oriented architecture can help address these challenges by decom
 
 Although there is no formal definition for this architectural style, the most prominent and common characteristics of microservice-oriented architectures are the following: [@fowler2014microservices]
 
-**Componentization via Services**: Splitting up systems into components, that are independently replaceable and upgradeable, and plugging them together to form an entire application is very common in the software industry. Microservices are also based on componentization and their components are individual services. Though, the key factor for microservices is that their components are services running in their own processes, that are plugged together by communicating over standard network protocols or remote procedure calls. This is different to componentization via libraries or modules, where components are linked together into a single executable and communicate via in-memory function calls. This difference allows microservices to be arbitrarily distributed between machines, making it a distributed system.
+**Componentization via Services**: Splitting up systems into components, that are independently replaceable and upgradeable, and plugging them together to form a full application is very common in the software industry. Microservices are also based on componentization and their components are the individual services. Though, the key factor for microservices is that their components are services running in their own processes, that are plugged together by communicating over standard network protocols or remote procedure calls. This is different to componentization via libraries or modules, where components are linked together into a single executable and communicate via in-memory function calls. This difference allows microservices to be arbitrarily distributed between machines, making it a distributed system.
 
-**Organized in service teams**: When organizations build microservices-oriented applications, their teams are typically organized in service teams. These teams are focused on business capabilities of a small set of services rather than having teams focusing on different technical capabilities like for example UI and database specialists. This fosters strong collaboration between different areas of expertise in service teams and maps the organizations communication structure to the inter-service communication of the developed services (Conway's law). Additionally, oftentimes development teams are simultaneously responsible for operating their services in production as well, which exposes them to real-world behavior of their services. This culture is often called "DevOps".
+**Organized in service teams**: When organizations build microservices-oriented applications, their teams are typically organized in service teams. These teams are focused on business capabilities of a small set of services rather than having teams focusing on different technical capabilities like for example UI and database specialists. This fosters strong collaboration between different areas of expertise inside the service teams. Also organization's communication structure maps to the inter-service communication of the developed services (Conway's law). Additionally, oftentimes development teams are simultaneously responsible for operating their services in production as well, which exposes them to real-world behavior of their services. This culture is often called "DevOps".
 
-**Products not Projects**: 
+**Smart endpoints and dumb pipes**: In a microservice-oriented application the communication structures between different services neither perform any smart transformations nor apply business rules, in contrast to for example Enterprise Service Bus products. Processes only communicate via simple and lightweight protocols and the smarts live in the endpoints (services) themselves. This promotes high decoupling and low cohesion of different services.
 
-**Smart endpoints and dumb pipes**: 
+**Decentralized Governance**: Decentralizing governance over service implementation allows development teams to use the right tool for the job every time. When building new services they can choose a suitable programming language, framework and data management solution for each one of them individually and independently of other components. Especially, when development teams are also responsible for operating their services in production, governance is highly decentralized as opposed to centralized governance in a monolithic application.
 
-**Decentralized Governance**: 
+**Decentralized Data Management**: Microservices don't share a single database with all components of an application and rather have individual databases specific to each service (also called "Polyglot Persistence"). As mentioned, this allows to make database management solution decisions individually for each service. But this also implies that responsibility for data is shared across microservices, meaning that each service is managing only data and attributes specific to the service's business logic and relationship with other services data model are well-defined – similar to "Bounded Contexts" in Domain Driven Design.
 
-**Decentralized Data Management**: 
+**Infrastructure Automation**: As with microservices the complexity of complete application deployments increases and it is generally desireable to frequently deploy new versions of services independently from others, it is key to leverage automation systems for building, testing and deploying applications. Code changes can be pushed through comprehensive pipelines featuring extensive automated tests and eventually automated deployment.
 
-**Infrastructure Automation**: 
-
-**Design for failure**: 
-
-**Evolutionary Design**: 
-
-- individual development and deployment of each service
-- using different programming languages
-- individual scaling of services
-- automated deployment machinery
+**Design for failure**: Individual services can fail at any time, for example caused by bugs, network failure or outages in the underlying infrastructure. Thus, it's crucial to design services to be able to handle failure of peer services gracefully. Additionally, such failures have to be detected early on. Therefore, real-time monitoring of the application is needed including for example details on availability, throughput, latency and even business relevant metrics.
+As it's important to ensure that a system can keep operating even when failures occur, it is helpful to artificially introduce problems that might arise in normal operation. This approach is called Chaos Engineering and is able to expose weaknesses and sensitivity to failures in order to fix them early on in the development process.
 
 ## Containerizing Microservices
 

@@ -7,6 +7,6 @@ By leveraging a service mesh, inter-service communication is abstracted and tran
 
 ## About
 
-This paper was written by Tim Ebert as part of his Master studies in Computer Science at the [DHBW Center for Advanced Studies](https://www.cas.dhbw.de/) (CAS).
+This is a term paper written by Tim Ebert as part of his Master studies in Computer Science at the [DHBW Center for Advanced Studies](https://www.cas.dhbw.de/) (CAS).
 
 Copyright (c) 2021 Tim Ebert

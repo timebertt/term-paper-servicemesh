@@ -2,12 +2,12 @@
 
 ## Introduction
 
-The microservice architectural style [@fowler2014microservices] has been the go-to architecture for building modern large-scale applications for a couple of years now.
+The microservice architectural style [@fowler2014microservices] is a comparably new paradigm, but has been the go-to architecture for building modern large-scale applications for a couple of years now.
 In comparison to traditional monolithic applications, microservice-oriented applications are composed of a suite of small service units, each running in their own process, instead of a large executable running in a single process.
 Every service provides only a single aspect of the application's business logic and communicates with other services via lightweight protocols such as HTTP(S).
 By splitting up the application's business logic into small packages, each service can be developed, tested, released, deployed and scaled individually and independently of other services.
 This allows services to be developed in different programming languages, by different teams, to use an individual data management solution and to be deployed on completely different runtime stacks.
-The only required common denominator of different services are the protocols and APIs for communication.
+The only required agreement of different services are the protocols and APIs used for communication.
 
 ## Motivation
 
@@ -16,48 +16,44 @@ The only required common denominator of different services are the protocols and
 The motivation for developing and transforming applications according to the microservices architectural style is rooted in the downsides of traditionally developed monolithic software systems.
 When changing a given component of such an application or adding a new feature, the whole application has to be built, tested and deployed.
 Oftentimes, it's quite difficult to run an instance of such applications on a development machine, so it becomes tedious and cumbersome to develop with prolonged turnaround times.
-Additionally, all components of monoliths have to be written in the same programming language and are thus tied to the same compiler and library versions and have to be deployed on the same runtime stack.
+Additionally, all components of monoliths have to be written in the same programming language and are tied to the same compiler and library versions and have to be deployed on the same runtime stack.
 All of these factors tend to foster high coupling of software components and slow down development and innovation speed as well as decrease release and deployment frequency.
-Also, the options of scaling a monolithic application are limited to deploying multiple instances of the whole application and balancing load across them as soon as demand for some components increases.
 
-As the size of the product grows with increasing demand for new features and higher usage rates, it gets more complicated to scale further by means of team size, new features and application usage.
+Also, the options for scaling out a monolithic application are limited to deploying multiple instances of the whole application and balancing load across them as soon as demand for some components increases.
+As the size of the product grows with increasing demand for new features and higher usage, it gets more complicated to scale further by means of team size, new features and application usage.
 A microservices-oriented architecture can help address these challenges by decomposing applications into small service units.
 
 ## Characteristics
 
 Although there is no formal definition for this architectural style, the most prominent and common characteristics of microservice-oriented architectures are the following: [@fowler2014microservices]
 
-**Componentization via Services**: Splitting up systems into components, that are independently replaceable and upgradeable, and plugging them together to form a full application is very common in the software industry. Microservices are also based on componentization and their components are the individual services. Though, the key factor for microservices is that their components are services running in their own processes, that are plugged together by communicating over standard network protocols or remote procedure calls. This is different to componentization via libraries or modules, where components are linked together into a single executable and communicate via in-memory function calls. This difference allows microservices to be arbitrarily distributed between machines, making it a distributed system.
+**Componentization via Services**: Splitting up systems into components, that are independently replaceable and upgradeable, and plugging them together to form a full application is very common in the software industry. Microservices are also based on componentization and their components are the individual services. Though, the key factor for microservices is that their components are services running in their own processes and are plugged together by communicating over standard network protocols or remote procedure calls. This is different to componentization via libraries or modules, where components are linked together into a single executable and communicate via in-memory function calls. This difference allows microservices to be arbitrarily distributed between machines, making it a distributed system.
 
 **Organized in service teams**: When organizations build microservices-oriented applications, their teams are typically organized in service teams. These teams are focused on business capabilities of a small set of services rather than having teams focusing on different technical capabilities like for example UI and database specialists. This fosters strong collaboration between different areas of expertise inside the service teams. Also organization's communication structure maps to the inter-service communication of the developed services (Conway's law). Additionally, oftentimes development teams are simultaneously responsible for operating their services in production as well, which exposes them to real-world behavior of their services. This culture is often called "DevOps".
 
-**Smart endpoints and dumb pipes**: In a microservice-oriented application the communication structures between different services neither perform any smart transformations nor apply business rules, in contrast to for example Enterprise Service Bus products. Processes only communicate via simple and lightweight protocols and the smarts live in the endpoints (services) themselves. This promotes high decoupling and low cohesion of different services.
+**Smart endpoints and dumb pipes**: In a microservice-oriented application the communication structures between different services neither perform any smart transformations nor apply business rules, in contrast to other systems like for example Enterprise Service Bus products. Processes only communicate via simple and lightweight protocols and the smarts live in the endpoints (services) themselves. This promotes low coupling and high cohesion of different services.
 
-**Decentralized Governance**: Decentralizing governance over service implementation allows development teams to use the right tool for the job every time. When building new services they can choose a suitable programming language, framework and data management solution for each one of them individually and independently of other components. Especially, when development teams are also responsible for operating their services in production, governance is highly decentralized as opposed to centralized governance in a monolithic application.
+**Decentralized Governance**: Decentralizing governance over service implementation allows development teams to use the right tool for the job every time. When building new services they can choose a suitable programming language, framework and data management solution for each one of them individually and independently of other components. Especially, when development teams are also responsible for operating their services in production, governance is highly decentralized as opposed to having a dedicated operations team and centralized development governance over a monolithic application.
 
 **Decentralized Data Management**: Microservices don't share a single database with all components of an application and rather have individual databases specific to each service (also called "Polyglot Persistence"). As mentioned, this allows to make database management solution decisions individually for each service. But this also implies that responsibility for data is shared across microservices, meaning that each service is managing only data and attributes specific to the service's business logic and relationship with other services data model are well-defined – similar to "Bounded Contexts" in Domain Driven Design.
+This makes it hard to achieve strong consistency across all data and forces microservices to deal with eventual consistency of data.
 
-**Infrastructure Automation**: As with microservices the complexity of complete application deployments increases and it is generally desireable to frequently deploy new versions of services independently from others, it is key to leverage automation systems for building, testing and deploying applications. Code changes can be pushed through comprehensive pipelines featuring extensive automated tests and eventually automated deployment.
+**Infrastructure Automation**: The complexity of complete application deployments increases with use of the microservices style and it becomes generally more desireable to frequently deploy new versions of services independently from others. Thus, it's key to leverage automation systems for building, testing and deploying microservice-oriented applications. Code changes can be pushed through comprehensive pipelines featuring extensive automated tests and eventually automated deployment.
 
 **Design for failure**: Individual services can fail at any time, for example caused by bugs, network failure or outages in the underlying infrastructure. Thus, it's crucial to design services to be able to handle failure of peer services gracefully. Additionally, such failures have to be detected early on. Therefore, real-time monitoring of the application is needed including for example details on availability, throughput, latency and even business relevant metrics.
-As it's important to ensure that a system can keep operating even when failures occur, it is helpful to artificially introduce problems that might arise in normal operation. This approach is called Chaos Engineering and is able to expose weaknesses and sensitivity to failures in order to fix them early on in the development process.
+As it's important to ensure that a system can keep operating even when failures occur, it is helpful to artificially introduce problems that might arise in normal operation. This approach is often referred to as Chaos Engineering and was originally introduced by Netflix [@chaosengineering]. With this, organizations are able to detect weaknesses of their services and sensitivity to failures in order to fix them early on in the development process.
 
 ## Containerizing Microservices
 
 Containers (operating system level virtualization) have grown in popularity over the past decade, also because it's a great fit for building microservice-oriented applications [@amaral2015performance].
 
 Conceptually, containers are quite similar to traditional hypervisor based virtualization (virtual machines) in the way that they provide virtualized and isolated environment for applications and their components.
-Virtual machines on one hand perform full virtualization of a given hardware and provide an own operating system, i.e. kernel, to each machine, which can be used to abstract software from specific hardware.
-Containers on the other hand – e.g. in their well-known implementation by Docker [^docker] - are a based on isolation features of the Linux kernel like namespaces and cgroups [@merkel2014docker].
+Virtual machines on one hand often perform full virtualization of a given hardware and provide an own operating system, i.e. kernel, to each machine, which can be used to abstract software from specific hardware.
+Containers on the other hand – e.g. in their well-known implementation by Docker [@dockercom] - are based on isolation features of the Linux kernel like namespaces and cgroups [@merkel2014docker].
 This means, that containers don't virtualize any hardware and don't run their own operating system, instead all containers running on one host machine share the same kernel.
-Thus, containers are much more lightweight, faster in startup and more efficient than traditional virtual machines.
-And because of this, a single server or worker machine may easily host as many as 100 containers at the same time, allowing to achieve high resource utilization by sharing a host's compute resources between diverse workloads.
+Thus, containers are much more lightweight on resources, faster in startup and more efficient than traditional virtual machines. Because of this, a single server or worker machine may easily host as many as 100 containers at the same time, allowing to achieve high resource utilization by sharing a host's compute resources between diverse workloads.
 
-[^docker]: [https://www.docker.com/](https://www.docker.com/)
-
-![Containers vs. Virtual Machines [^c-vs-vm]](../assets/containers-vs-vms.png)
-
-[^c-vs-vm]: Available at [https://www.docker.com/blog/containers-replacing-virtual-machines/](https://www.docker.com/blog/containers-replacing-virtual-machines/); accessed Jan, 5th 2021
+![Containers vs. VMs [@dockercom]](../assets/containers-vs-vms.png)
 
 Additionally, container virtualization provides mechanisms to conveniently package, version and ship software in container images, which can be published to and retrieved from image registries.
 When building application container images, typically a base image is selected and afterwards the component's executable, additional libraries and dependencies are added to the image, each resulting in a new image layer.
@@ -65,16 +61,16 @@ By that, a given application component is always bundled with all of its needed 
 Because of the layered nature of container images, common base images and runtime versions can be cached and reused.
 
 The process of running a containerized application is very simple and only requires a compatible container runtime and access to the container registry.
-Before container can be started, the respective container image or missing layers thereof are pulled from the registry.
-Afterwards a new container can be created from the image and started immediately. The application might take a few seconds to initialize. Though, the process of starting a new container from a present image is very fast, especially compared to starting up a new virtual machine.
+Before a new container is started, the respective container image or missing layers thereof are pulled from the registry.
+Afterwards a new container can be created from the image and started immediately. The application might take a few seconds to initialize. Though, the process of starting a new container from an image, that is already present on the host machine is very fast, especially compared to starting up a new virtual machine.
 
 All of these advantages and mechanisms make containers a great fit for building microservice-oriented applications.
-Every service of an application can be packaged in container images with its individual runtime dependencies and brought up independently from other services just by starting containers from that image.
+With it, every service of an application can be packaged in container images with its individual runtime dependencies and brought up independently from other services just by starting containers from that image.
 For example, if there are two services written in PHP and one of them is still depending on version 5 while the other one is requiring new features of version 7, this can be easily achieved by packaging and deploying them as individual containers as opposed to starting up different virtual machines satisfying the different runtime requirements.
 The same applies, if development teams want to use a different set of libraries or even a completely different programming language.
 
 Because containers are so lightweight and can be started up so quickly, it is also very easy to scale individual containerized services by just starting new instances of the same image and thereby increasing the amount of compute resources a single service can use.
-By this, containerized microservices can be scaled in a fine-grained manner in comparison to monolithic applications, because the amount of load an individual component can handle, can now be increased simply by starting new containers of that service, while a monolithic application can only increase the capacity of its components in an equal manner.
+By this, containerized microservices can be scaled in a fine-grained manner in comparison to monolithic applications, because the amount of load an individual component can handle, can now be increased simply by starting new containers of that service, while a monolithic application can only increase the capacity of single components in lockstep with all others.
 
 ## Kubernetes as a Deployment underlay {#sec:kubernetes}
 

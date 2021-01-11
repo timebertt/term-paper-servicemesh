@@ -1,5 +1,7 @@
 # Abstracting Inter-Service Communication of Microservices using a Service Mesh
 
+Read the paper [here](./paper-final.pdf).
+
 ## Abstract
 
 By now, the microservices architectural style has been well-established in the entire software industry and has proven to provide great flexibility in development, continuous deployment, faster innovation and incredibly high scalability. Though, running large-scale microservice-oriented applications will face development and operations teams with difficult challenges of distributed computing, especially in service-to-service communication.

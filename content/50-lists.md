@@ -1,3 +1,7 @@
 \newpage
 
-\todo[inline]{fine-tune paragraphs and footnote links}
+<!--
+\begingroup
+\hypersetup{linkcolor=black}
+\listoffigures
+\endgroup -->

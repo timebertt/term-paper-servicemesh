@@ -10,9 +10,9 @@ metadata:
 
 variables:
 
-  linkcolor: Black
-  filecolor: DarkBlue
-  citecolor: DarkBlue
+  linkcolor: Maroon
+  filecolor: Black
+  citecolor: Black
   urlcolor: MediumBlue
   toccolor: Black
 

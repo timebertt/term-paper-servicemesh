@@ -11,6 +11,8 @@ The only required common denominator of different services are the protocols and
 
 ## Motivation
 
+![Monoliths vs. Microservices [@fowler2014microservices]](../assets/scale-microservices.png)
+
 The motivation for developing and transforming applications according to the microservices architectural style is rooted in the downsides of traditionally developed monolithic software systems.
 When changing a given component of such an application or adding a new feature, the whole application has to be built, tested and deployed.
 Oftentimes, it's quite difficult to run an instance of such applications on a development machine, so it becomes tedious and cumbersome to develop with prolonged turnaround times.
@@ -20,8 +22,6 @@ Also, the options of scaling a monolithic application are limited to deploying m
 
 As the size of the product grows with increasing demand for new features and higher usage rates, it gets more complicated to scale further by means of team size, new features and application usage.
 A microservices-oriented architecture can help address these challenges by decomposing applications into small service units.
-
-![Monoliths vs. Microservices [@fowler2014microservices]](../assets/scale-microservices.png)
 
 ## Characteristics
 
